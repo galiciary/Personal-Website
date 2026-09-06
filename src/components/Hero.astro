@@ -1,0 +1,157 @@
+---
+import { site, socials } from '../data/site';
+import Icon from './Icon.astro';
+---
+
+<section class="hero">
+  <div class="wrap inner">
+    <p class="kicker">{site.location}</p>
+
+    <h1>{site.name}</h1>
+
+    <p class="tagline">{site.tagline}</p>
+
+    <p class="intro">{site.intro}</p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="#work">See the work</a>
+      <a class="btn" href={`mailto:${site.email}`}>Get in touch</a>
+    </div>
+
+    <ul class="socials">
+      {
+        socials.map((s) => (
+          <li>
+            <a href={s.href} rel="me noopener" aria-label={s.label} title={s.label}>
+              <Icon name={s.icon} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(4rem, 14vh, 8rem) clamp(3.5rem, 10vh, 6rem);
+    overflow: hidden;
+  }
+
+  /* A faint grid, fading out downward — quiet texture, no animation. */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.35;
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+    pointer-events: none;
+  }
+
+  .inner {
+    position: relative;
+  }
+
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+    margin-bottom: 1.25rem;
+  }
+
+  .kicker::before {
+    content: '';
+    display: inline-block;
+    width: 1.75rem;
+    height: 1px;
+    background: var(--accent-dim);
+    vertical-align: middle;
+    margin-right: 0.75rem;
+  }
+
+  h1 {
+    font-size: clamp(2.75rem, 9vw, 5.25rem);
+    letter-spacing: -0.035em;
+    margin-bottom: 0.75rem;
+  }
+
+  .tagline {
+    font-size: clamp(1.05rem, 2.6vw, 1.4rem);
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.75rem;
+  }
+
+  .intro {
+    max-width: 54ch;
+    color: var(--fg-muted);
+    font-size: 1.0625rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.15rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+
+  .btn:hover {
+    border-color: var(--accent-dim);
+    background: var(--accent-wash);
+    color: var(--fg);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent-dim);
+    color: var(--bg);
+  }
+
+  .socials {
+    display: flex;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 2.5rem 0 0;
+    padding: 0;
+  }
+
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 2.375rem;
+    height: 2.375rem;
+    border-radius: 4px;
+    color: var(--fg-muted);
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  .socials a:hover {
+    color: var(--accent);
+    background: var(--bg-raised);
+  }
+</style>

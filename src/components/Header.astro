@@ -1,0 +1,91 @@
+---
+import { site, nav } from '../data/site';
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a href="#top" class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">{site.name}</span>
+    </a>
+
+    <nav aria-label="Sections">
+      <ul>
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.75rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--accent);
+    flex: none;
+  }
+
+  nav ul {
+    display: flex;
+    gap: clamp(0.9rem, 3vw, 1.75rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--fg-muted);
+    text-decoration: none;
+  }
+
+  nav a:hover {
+    color: var(--fg);
+  }
+
+  .brand-name {
+    white-space: nowrap;
+  }
+
+  @media (max-width: 34rem) {
+    .brand-name {
+      display: none;
+    }
+  }
+</style>
