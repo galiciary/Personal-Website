@@ -26,7 +26,7 @@ export const projects: Project[] = [
     tags: ['Python', 'Security', 'CLI', 'pre-commit'],
     tone: 'c1',
     links: [
-      { label: 'Source', href: 'https://github.com/galiciary/GaliciousSecretScanner' },
+      { label: 'Source', href: 'https://github.com/theoithinkk/GaliciousSecretScanner' },
       { label: 'Demo', href: 'https://youtu.be/wDCP1lN0BF0' },
     ],
   },
