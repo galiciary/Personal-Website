@@ -2,50 +2,36 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { projects } from '../data/projects';
 ---
 
 <Base>
   <Hero />
-
-  <!-- put work here (repositories) -->
   <Section
     id="work"
-    eyebrow="01 / Work" 
-    title="pass"
-    lede="pass"
+    eyebrow="01 / Work"
+    title="Projects & Contributions"
+    lede="Four projects that show the most — a secret scanner, a document auditor, a Filipino-language classifier, and a disaster-response forum."
+    tone="raised"
   >
-    <div class="stub">
-      pass
+    <div class="card-grid">
+      {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
     </div>
   </Section>
 
   <!-- put timeline here (work experience, schools, orgs) -->
-  <Section
-    id="timeline"
-    eyebrow="02 / Timeline"
-    title="pass"
-    lede="pass"
-  >
+  <Section id="timeline" eyebrow="02 / Timeline" title="pass" lede="pass">
     <div class="stub">TODO: timeline</div>
   </Section>
 
   <!-- personal stuff -->
-  <Section
-    id="about"
-    eyebrow="03 / About"
-    title="pass"
-    lede="pass" 
-  >
+  <Section id="about" eyebrow="03 / About" title="pass" lede="pass" tone="raised">
     <div class="stub">TODO: bio, skills</div>
   </Section>
 
   <!-- contact info -->
-  <Section
-    id="contact"
-    eyebrow="04 / Contact"
-    title="pass"
-    lede="pass"
-  >
+  <Section id="contact" eyebrow="04 / Contact" title="pass" lede="pass">
     <div class="stub">TODO: contact block</div>
   </Section>
 </Base>

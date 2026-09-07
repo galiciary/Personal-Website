@@ -7,14 +7,24 @@
   --line-strong: #333941;
 
   /* text */
-  --fg: #e9e7e3;
-  --fg-muted: #9aa1ab;
-  --fg-faint: #6b727c;
+  --fg: #f4f2ee;
+  --fg-muted: #a8b0ba;
+  --fg-faint: #767e89;
 
   /* signal */
-  --accent: #f0a868;
-  --accent-dim: #b97c46;
-  --accent-wash: rgba(240, 168, 104, 0.12);
+  --accent: #7ab7ff;
+  --accent-dim: #4a7fbd;
+  --accent-wash: rgba(122, 183, 255, 0.14);
+
+  /* project block colours */
+  --proj-azure: #2f66b5;
+  --proj-azure-deep: #21498a;
+  --proj-cobalt: #27508f;
+  --proj-cobalt-deep: #1a386b;
+  --proj-navy: #1f3f70;
+  --proj-navy-deep: #142a4f;
+  --proj-midnight: #1a3050;
+  --proj-midnight-deep: #101f36;
 
   /* type */
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
@@ -116,6 +126,22 @@ img {
 .section {
   padding-block: var(--section-gap);
   border-top: 1px solid var(--line);
+}
+
+.section[data-tone='raised'] {
+  background: var(--bg-raised);
+}
+
+.section[data-tone='sunken'] {
+  background: var(--bg-sunken);
+}
+
+.card-grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  align-items: stretch;
 }
 
 .eyebrow {

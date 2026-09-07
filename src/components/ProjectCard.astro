@@ -1,0 +1,186 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const n = String(index + 1).padStart(2, '0');
+---
+
+<article class="card" data-tone={project.tone}>
+  <div class="top">
+    <span class="num">{n}</span>
+    <h3>{project.title}</h3>
+    <p class="kicker">{project.kicker}</p>
+  </div>
+
+  <p class="blurb">{project.blurb}</p>
+
+  {project.metric && <p class="metric">{project.metric}</p>}
+
+  <ul class="tags">
+    {project.tags.map((t) => <li>{t}</li>)}
+  </ul>
+
+  <div class="links">
+    {
+      project.links.map((l) => (
+        <a href={l.href} rel="noopener">
+          {l.label}
+          <span aria-hidden="true">→</span>
+        </a>
+      ))
+    }
+  </div>
+</article>
+
+<style>
+  .card {
+    --card: var(--proj-azure);
+    --card-deep: var(--proj-azure-deep);
+    --card-ink: #fff;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-radius: 10px;
+    /* Slight gradient keeps a large flat block from looking like a swatch. */
+    background: linear-gradient(160deg, var(--card) 0%, var(--card-deep) 100%);
+    color: var(--card-ink);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset,
+      0 18px 40px -24px rgba(0, 0, 0, 0.9);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2px;
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--accent) 25%,
+      var(--accent) 75%,
+      transparent
+    );
+    opacity: 0.55;
+    transition: opacity 0.18s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14) inset,
+      0 26px 50px -22px rgba(0, 0, 0, 0.95),
+      0 0 0 1px var(--accent-wash);
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card[data-tone='azure'] {
+    --card: var(--proj-azure);
+    --card-deep: var(--proj-azure-deep);
+  }
+  .card[data-tone='cobalt'] {
+    --card: var(--proj-cobalt);
+    --card-deep: var(--proj-cobalt-deep);
+  }
+  .card[data-tone='navy'] {
+    --card: var(--proj-navy);
+    --card-deep: var(--proj-navy-deep);
+  }
+  .card[data-tone='midnight'] {
+    --card: var(--proj-midnight);
+    --card-deep: var(--proj-midnight-deep);
+  }
+
+  .top {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    opacity: 0.7;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+    letter-spacing: -0.02em;
+  }
+
+  .kicker {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+
+  .blurb {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  .metric {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.22);
+    align-self: start;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tags li {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 2px;
+    transition: border-color 0.15s ease, gap 0.15s ease;
+  }
+
+  .links a:hover {
+    color: inherit;
+    border-color: #fff;
+    gap: 0.65rem;
+  }
+</style>

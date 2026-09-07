@@ -4,12 +4,14 @@ interface Props {
   eyebrow: string;
   title: string;
   lede?: string;
+  /** Alternate the background band so sections don't read as one flat wall. */
+  tone?: 'base' | 'raised' | 'sunken';
 }
 
-const { id, eyebrow, title, lede } = Astro.props;
+const { id, eyebrow, title, lede, tone = 'base' } = Astro.props;
 ---
 
-<section class="section" id={id}>
+<section class="section" id={id} data-tone={tone}>
   <div class="wrap">
     <p class="eyebrow">{eyebrow}</p>
     <h2 class="section-title">{title}</h2>
