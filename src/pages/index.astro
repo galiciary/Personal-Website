@@ -3,13 +3,14 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import Timeline from '../components/Timeline.astro';
 import { projects } from '../data/projects';
 ---
 
 <Base>
   <Hero />
 
-  <!-- Projects -->
+  <!-- put work here (repositories) -->
   <Section
     id="work"
     eyebrow="01 / Projects"
@@ -27,9 +28,14 @@ import { projects } from '../data/projects';
     <div class="modal-scroll" data-modal-body></div>
   </dialog>
 
-  <!-- Timeline -->
-  <Section id="timeline" eyebrow="02 / Timeline" title="pass" lede="pass">
-    <div class="stub">TODO: timeline</div>
+  <!-- put timeline here (work experience, schools, orgs) -->
+  <Section
+    id="timeline"
+    eyebrow="02 / Timeline"
+    title="My Journey"
+    lede="Academics, work roles and the projects that came out of them."
+  >
+    <Timeline />
   </Section>
 
   <!-- personal stuff -->
