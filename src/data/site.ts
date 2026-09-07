@@ -8,7 +8,7 @@ export const site = {
   tagline: 'Building software. Securing systems. Solving problems.', // one liner; make it punchier
   intro:
     '3rd year Computer Science student at De La Salle University interested in ' +
-    'cybersecurity, software development, networking, and finance.',
+    'cybersecurity, software development, computer networks, and finance.',
   // path to your photo under public/, leave empty to show the placeholder frame
   portrait: '/images/lance.jpg',
   location: 'Manila, Philippines',
