@@ -1,9 +1,11 @@
 ---
 import { site, socials } from '../data/site';
 import Icon from './Icon.astro';
+import Backdrop from './Backdrop.astro';
 ---
 
 <section class="hero">
+  <Backdrop />
   <div class="wrap inner">
     <p class="kicker">{site.location}</p>
 
@@ -58,7 +60,7 @@ import Icon from './Icon.astro';
     background-image: linear-gradient(var(--line) 1px, transparent 1px),
       linear-gradient(90deg, var(--line) 1px, transparent 1px);
     background-size: 64px 64px;
-    opacity: 0.75;
+    opacity: 0.45;
     mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
     pointer-events: none;

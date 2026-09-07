@@ -1,0 +1,155 @@
+---
+/**
+ * Animated backdrop
+ */
+---
+
+<canvas class="backdrop" data-backdrop aria-hidden="true"></canvas>
+
+<style>
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    /* Fades out downward so the section boundary stays clean. */
+    mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
+  }
+</style>
+
+<script>
+  type Node = { x: number; y: number; vx: number; vy: number; r: number };
+
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-backdrop]');
+  const ctx = canvas?.getContext('2d');
+
+  if (canvas && ctx) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // one node per ~18k device-independent pixels, clamped at both ends.
+    const DENSITY = 18000;
+    const MAX_NODES = 90;
+    const LINK_DIST = 130;
+
+    let nodes: Node[] = [];
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let frame = 0;
+    let running = false;
+
+    function build() {
+      const rect = canvas!.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+      canvas!.width = Math.round(width * dpr);
+      canvas!.height = Math.round(height * dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const count = Math.min(MAX_NODES, Math.round((width * height) / DENSITY));
+      nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        r: Math.random() * 1.4 + 0.7,
+      }));
+    }
+
+    function step() {
+      ctx!.clearRect(0, 0, width, height);
+
+      for (const n of nodes) {
+        n.x += n.vx;
+        n.y += n.vy;
+
+        // wrap rather than bounce, bouncing reads as a boundary, wrapping doesn't.
+        if (n.x < -20) n.x = width + 20;
+        if (n.x > width + 20) n.x = -20;
+        if (n.y < -20) n.y = height + 20;
+        if (n.y > height + 20) n.y = -20;
+      }
+
+      // links first, so nodes sit on top of them.
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i];
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist > LINK_DIST) continue;
+
+          const alpha = (1 - dist / LINK_DIST) * 0.3;
+          ctx!.strokeStyle = `rgba(122, 183, 255, ${alpha})`;
+          ctx!.lineWidth = 1;
+          ctx!.beginPath();
+          ctx!.moveTo(a.x, a.y);
+          ctx!.lineTo(b.x, b.y);
+          ctx!.stroke();
+        }
+      }
+
+      for (const n of nodes) {
+        ctx!.fillStyle = 'rgba(168, 200, 240, 0.55)';
+        ctx!.beginPath();
+        ctx!.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      if (running) frame = requestAnimationFrame(step);
+    }
+
+    function start() {
+      if (running || reduced.matches) return;
+      running = true;
+      frame = requestAnimationFrame(step);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(frame);
+    }
+
+    function reset() {
+      build();
+      if (reduced.matches) {
+        // still frame, so the hero isn't empty for reduced-motion users.
+        running = false;
+        step();
+      }
+    }
+
+    reset();
+    start();
+
+    // only animate while the hero is actually on screen.
+    const hero = canvas.parentElement;
+    if (hero && 'IntersectionObserver' in window) {
+      new IntersectionObserver(
+        ([entry]) => (entry.isIntersecting ? start() : stop()),
+        { threshold: 0 }
+      ).observe(hero);
+    }
+
+    document.addEventListener('visibilitychange', () =>
+      document.hidden ? stop() : start()
+    );
+
+    let resizeTimer: number | undefined;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(reset, 150);
+    });
+
+    reduced.addEventListener('change', () => {
+      stop();
+      reset();
+      start();
+    });
+  }
+</script>
