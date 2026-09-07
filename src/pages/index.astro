@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Timeline from '../components/Timeline.astro';
+import TimelineBackdrop from '../components/TimelineBackdrop.astro';
 import { projects } from '../data/projects';
 ---
 
@@ -35,6 +36,7 @@ import { projects } from '../data/projects';
     title="My Journey"
     lede="Academics, work roles and the projects that came out of them."
   >
+    <TimelineBackdrop slot="decor" />
     <Timeline />
   </Section>
 

@@ -12,6 +12,9 @@ const { id, eyebrow, title, lede, tone = 'base' } = Astro.props;
 ---
 
 <section class="section reveal" id={id} data-tone={tone}>
+  <!-- decoration sits outside .wrap so it can use the full section width -->
+  <slot name="decor" />
+
   <div class="wrap">
     <p class="eyebrow">{eyebrow}</p>
     <h2 class="section-title">{title}</h2>

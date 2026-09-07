@@ -6,7 +6,7 @@ export type TimelineEntry = {
   // free text, shown in mono under the entry
   date: string;
   // drives the marker colour and the small label
-  kind: 'role' | 'project' | 'education' | 'work';
+  kind: 'role' | 'project' | 'education' | 'work' | 'certification';
   links?: { label: string; href: string }[];
 };
 
@@ -57,6 +57,15 @@ export const timeline: TimelineEntry[] = [
     kind: 'project',
     links: [{ label: 'Deployment Link', 
     href: 'https://resq-kkve.onrender.com/' }],
+  },
+  {
+    title: 'ISC2 Certified in Cybersecurity (CC) Passer',
+    subtitle: 'ISC2',
+    blurb:
+      'Passed the entry-level certification exam covering security principles, access control, ' +
+      'network security, and security operations.',
+    date: 'March 2026',
+    kind: 'certification',
   },
   {
     title: 'Associate, Data and Research',

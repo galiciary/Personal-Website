@@ -1,0 +1,156 @@
+---
+// animated timeline backdrop: slow motes rising through the section, each
+// trailing a short vertical streak, so the movement reads as upward drift
+// rather than the hero's constellation of links
+//
+// same care as the hero backdrop:
+//   honours prefers-reduced-motion with a single still frame
+//   only runs while the section is on screen
+//   density scales with area and the pixel ratio is capped
+---
+
+<canvas class="tl-backdrop" data-tl-backdrop aria-hidden="true"></canvas>
+
+<style>
+  .tl-backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    /* fades in and out at both edges so the band boundaries stay clean */
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 18%,
+      #000 82%,
+      transparent 100%
+    );
+  }
+</style>
+
+<script>
+  type Mote = { x: number; y: number; v: number; len: number; r: number; a: number };
+
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-tl-backdrop]');
+  const ctx = canvas?.getContext('2d');
+
+  if (canvas && ctx) {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // one mote per ~14k device-independent pixels, clamped at the top
+    const DENSITY = 14000;
+    const MAX_MOTES = 70;
+
+    let motes: Mote[] = [];
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let frame = 0;
+    let running = false;
+
+    function spawn(atBottom: boolean): Mote {
+      return {
+        x: Math.random() * width,
+        y: atBottom ? height + Math.random() * 60 : Math.random() * height,
+        // slow, and varied enough that the field never marches in step
+        v: Math.random() * 0.3 + 0.12,
+        len: Math.random() * 34 + 14,
+        r: Math.random() * 1.1 + 0.5,
+        a: Math.random() * 0.35 + 0.18,
+      };
+    }
+
+    function build() {
+      const rect = canvas!.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+      canvas!.width = Math.round(width * dpr);
+      canvas!.height = Math.round(height * dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const count = Math.min(MAX_MOTES, Math.round((width * height) / DENSITY));
+      motes = Array.from({ length: count }, () => spawn(false));
+    }
+
+    function step() {
+      ctx!.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < motes.length; i++) {
+        const m = motes[i];
+        m.y -= m.v;
+
+        // recycle from the bottom once a mote leaves the top edge
+        if (m.y + m.len < -10) {
+          motes[i] = spawn(true);
+          continue;
+        }
+
+        // the trail, fading upward from the head
+        const grad = ctx!.createLinearGradient(m.x, m.y, m.x, m.y + m.len);
+        grad.addColorStop(0, `rgba(122, 183, 255, ${m.a})`);
+        grad.addColorStop(1, 'rgba(122, 183, 255, 0)');
+        ctx!.strokeStyle = grad;
+        ctx!.lineWidth = 1;
+        ctx!.beginPath();
+        ctx!.moveTo(m.x, m.y);
+        ctx!.lineTo(m.x, m.y + m.len);
+        ctx!.stroke();
+
+        // the head, silver rather than blue so it catches slightly
+        ctx!.fillStyle = `rgba(218, 224, 232, ${m.a + 0.2})`;
+        ctx!.beginPath();
+        ctx!.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+        ctx!.fill();
+      }
+
+      if (running) frame = requestAnimationFrame(step);
+    }
+
+    function start() {
+      if (running || reduced.matches) return;
+      running = true;
+      frame = requestAnimationFrame(step);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(frame);
+    }
+
+    function reset() {
+      build();
+      if (reduced.matches) {
+        running = false;
+        step();
+      }
+    }
+
+    reset();
+    start();
+
+    const section = canvas.parentElement;
+    if (section && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => (entry.isIntersecting ? start() : stop()), {
+        threshold: 0,
+      }).observe(section);
+    }
+
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+
+    let resizeTimer: number | undefined;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(reset, 150);
+    });
+
+    reduced.addEventListener('change', () => {
+      stop();
+      reset();
+      start();
+    });
+  }
+</script>
