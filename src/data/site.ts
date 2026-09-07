@@ -11,6 +11,7 @@ export const site = {
     'cybersecurity, software development, computer networks, and finance.',
   // path to your photo under public/, leave empty to show the placeholder frame
   portrait: '/images/lance.jpg',
+  resume: '/Lance-Galicia-Resume.pdf',
   location: 'Manila, Philippines',
   email: 'lance_galicia@dlsu.edu.ph',
 } as const;
