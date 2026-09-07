@@ -9,20 +9,25 @@ import { projects } from '../data/projects';
 <Base>
   <Hero />
 
-  <!-- put work here (repositories) -->
+  <!-- Projects -->
   <Section
     id="work"
     eyebrow="01 / Projects"
-    title="Things I've built"
-    lede="My top projects: a secret scanner, an analytics dashboard, an interactive web exhibit, and a disaster-response forum."
+    title="Projects & Contributions"
+    lede="My top projects. Scroll sideways for the rest, and click a card for the full description."
     tone="light"
   >
-    <div class="card-grid">
+    <div class="card-rail" data-rail>
       {projects.map((project, i) => <ProjectCard project={project} index={i} />)}
     </div>
   </Section>
 
-  <!-- put timeline here (work experience, schools, orgs) -->
+  <dialog class="project-modal" data-modal aria-label="Project detail">
+    <button type="button" class="modal-close" data-modal-close aria-label="Close">✕</button>
+    <div class="modal-scroll" data-modal-body></div>
+  </dialog>
+
+  <!-- Timeline -->
   <Section id="timeline" eyebrow="02 / Timeline" title="pass" lede="pass">
     <div class="stub">TODO: timeline</div>
   </Section>
@@ -37,3 +42,57 @@ import { projects } from '../data/projects';
     <div class="stub">TODO: contact block</div>
   </Section>
 </Base>
+
+<script>
+  // rail behaviour:
+  //   hover lifts a card, that is pure css
+  //   a click opens the project in a modal, built from the card's own hidden block
+  const rail = document.querySelector<HTMLElement>('[data-rail]');
+  const modal = document.querySelector<HTMLDialogElement>('[data-modal]');
+  const modalBody = document.querySelector<HTMLElement>('[data-modal-body]');
+  const modalClose = document.querySelector<HTMLButtonElement>('[data-modal-close]');
+
+  function openModal(card: HTMLElement) {
+    if (!modal || !modalBody) return;
+    const detail = card.querySelector<HTMLElement>('[data-detail]');
+    if (!detail) return;
+
+    const copy = detail.cloneNode(true) as HTMLElement;
+    copy.removeAttribute('hidden');
+    copy.removeAttribute('data-detail');
+    copy.className = 'modal-detail';
+    modalBody.replaceChildren(copy);
+    modalBody.scrollTop = 0;
+    modal.showModal();
+  }
+
+  modalClose?.addEventListener('click', () => modal?.close());
+
+  // clicking the backdrop closes, clicking the panel does not
+  modal?.addEventListener('click', (event) => {
+    if (event.target === modal) modal.close();
+  });
+
+  if (rail) {
+    const cards = Array.from(rail.querySelectorAll<HTMLElement>('.card'));
+
+    for (const card of cards) {
+      card.addEventListener('click', (event) => {
+        // let a link inside the card do its job
+        if ((event.target as HTMLElement).closest('a')) return;
+        openModal(card);
+      });
+
+      card.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openModal(card);
+      });
+
+      // keep a card that gains focus by tabbing inside the viewport
+      card.addEventListener('focus', () =>
+        card.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+      );
+    }
+  }
+</script>

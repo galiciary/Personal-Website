@@ -27,6 +27,10 @@
   --card-3-to: #131c38;
   --card-4-from: #2e4c88;
   --card-4-to: #111930;
+  --card-5-from: #3762a8;
+  --card-5-to: #14213f;
+  --card-6-from: #2b5091;
+  --card-6-to: #101a33;
 
   /* one gradient shared by every blue surface: buttons, brand mark, skip link */
   --blue-grad: linear-gradient(150deg, #4079c8 0%, #23407a 100%);
@@ -128,6 +132,8 @@ img {
 }
 
 .wrap {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: var(--page-max);
   margin-inline: auto;
@@ -135,6 +141,8 @@ img {
 }
 
 .section {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--section-gap);
   border-top: 1px solid var(--line);
 }
@@ -165,13 +173,45 @@ img {
   --accent-wash: rgba(31, 95, 176, 0.12);
 }
 
-/* card grid used by the work section */
-.card-grid {
-  display: grid;
-  gap: 1.25rem;
-  margin-top: 2.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+/*
+  full-bleed scrolling rail. breaks out of .wrap so the cards use the whole
+  viewport, and scrolls horizontally rather than squeezing every card in
+*/
+.card-rail {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  /* left edge lines up with the heading above, cards run off to the right */
+  padding-left: max(var(--gutter), (100vw - var(--page-max)) / 2 + var(--gutter));
+  padding-right: var(--gutter);
+  padding-block: 0.5rem 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.9rem;
+  height: 31rem;
   align-items: stretch;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: max(var(--gutter), (100vw - var(--page-max)) / 2 + var(--gutter));
+  /* the scrollbar is replaced by the arrow buttons above the rail */
+  scrollbar-width: none;
+}
+
+.card-rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* stacked and auto height once there is no room to scroll sideways */
+@media (max-width: 48rem) {
+  .card-rail {
+    padding-inline: var(--gutter);
+    flex-direction: column;
+    height: auto;
+    gap: 1.25rem;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+
 }
 
 .eyebrow {
@@ -264,4 +304,150 @@ img {
 .skip-link:focus {
   top: 0;
   color: #fff;
+}
+
+/* ---------------------------------------------------------------
+   project modal
+   --------------------------------------------------------------- */
+
+.project-modal {
+  width: min(58rem, calc(100vw - 2 * var(--gutter)));
+  max-height: min(85vh, 52rem);
+  padding: 0;
+  border: 0;
+  border-radius: 20px;
+  background: #fff;
+  color: #14161a;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.project-modal::backdrop {
+  background: rgba(6, 8, 12, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.modal-scroll {
+  max-height: min(85vh, 52rem);
+  overflow-y: auto;
+  padding: clamp(1.75rem, 4vw, 3.25rem);
+  padding-top: clamp(3rem, 5vw, 3.75rem);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 2;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #1d1f24;
+  color: #fff;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.modal-close:hover {
+  background: #33373f;
+}
+
+.modal-detail { display: block; }
+
+.project-modal .m-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: #79818d;
+}
+
+.project-modal .m-title {
+  margin-top: 0.35rem;
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  letter-spacing: -0.03em;
+  color: #14161a;
+}
+
+.project-modal .m-kicker {
+  margin-top: 0.5rem;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: #4b535e;
+}
+
+/* the grey panel the long copy sits in, as on apple's cards */
+.project-modal .m-body {
+  margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 14px;
+  background: #f4f6f8;
+}
+
+.project-modal .m-blurb {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.65;
+  color: #333b45;
+}
+
+.project-modal .m-metric {
+  margin-top: 1.25rem;
+  white-space: pre-line;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: #14161a;
+  padding: 0.75rem 0.9rem;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #dfe4ea;
+}
+
+.project-modal .m-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.project-modal .m-tags li {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  background: #eef1f5;
+  border: 1px solid #dfe4ea;
+  color: #4b535e;
+}
+
+.project-modal .m-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.project-modal .m-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f5fb0;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(31, 95, 176, 0.4);
+  padding-bottom: 2px;
+  transition: gap 0.15s ease, border-color 0.15s ease;
+}
+
+.project-modal .m-links a:hover {
+  color: #17457f;
+  border-color: #17457f;
+  gap: 0.65rem;
 }

@@ -10,28 +10,60 @@ const { project, index } = Astro.props;
 const n = String(index + 1).padStart(2, '0');
 ---
 
-<article class="card" data-tone={project.tone}>
-  <div class="top">
+<article class="card" data-tone={project.tone} tabindex="0" aria-label={project.title}>
+  <div class="head">
     <span class="num">{n}</span>
     <h3>{project.title}</h3>
+  </div>
+
+  <!--
+    fixed-height middle. the short line and the full description occupy the same
+    box, so opening a card swaps the text without changing the card's size
+  -->
+  <div class="middle">
     <p class="kicker">{project.kicker}</p>
   </div>
 
-  <p class="blurb">{project.blurb}</p>
+  <div class="foot">
+    <ul class="tags">
+      {project.tags.map((t) => <li>{t}</li>)}
+    </ul>
 
-  <ul class="tags">
-    {project.tags.map((t) => <li>{t}</li>)}
-  </ul>
+    <div class="links">
+      {
+        project.links.map((l) => (
+          <a href={l.href} rel="noopener">
+            {l.label}
+            <span aria-hidden="true">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
 
-  <div class="links">
-    {
-      project.links.map((l) => (
-        <a href={l.href} rel="noopener">
-          {l.label}
-          <span aria-hidden="true">→</span>
-        </a>
-      ))
-    }
+  <span class="cue" aria-hidden="true">+</span>
+
+  <div class="detail-source" data-detail hidden>
+    <p class="m-num">{n}</p>
+    <h2 class="m-title">{project.title}</h2>
+    <p class="m-kicker">{project.kicker}</p>
+    <div class="m-body">
+      <p class="m-blurb">{project.blurb}</p>
+      {project.metric && <p class="m-metric">{project.metric}</p>}
+    </div>
+    <ul class="m-tags">
+      {project.tags.map((t) => <li>{t}</li>)}
+    </ul>
+    <div class="m-links">
+      {
+        project.links.map((l) => (
+          <a href={l.href} rel="noopener">
+            {l.label}
+            <span aria-hidden="true">→</span>
+          </a>
+        ))
+      }
+    </div>
   </div>
 </article>
 
@@ -42,18 +74,27 @@ const n = String(index + 1).padStart(2, '0');
 
     position: relative;
     isolation: isolate;
+    /* fixed size. nothing about opening a card changes its footprint */
+    flex: 0 0 20rem;
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    padding: clamp(1.5rem, 3vw, 2rem);
-    border-radius: 12px;
-    /* diagonal blue gradient, the light corner reads as where the light is */
+    padding: 1.75rem;
+    border-radius: 16px;
     background: linear-gradient(150deg, var(--from) 0%, var(--to) 78%);
     color: #fff;
     border: 1px solid var(--silver-line);
-    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.55);
     overflow: hidden;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .card:hover,
+  .card:focus-visible {
+    transform: translateY(-8px);
+    border-color: rgba(218, 224, 232, 0.55);
+    box-shadow: 0 34px 60px -26px rgba(0, 0, 0, 0.7);
   }
 
   /* silver sheen across the top-left corner */
@@ -85,17 +126,6 @@ const n = String(index + 1).padStart(2, '0');
       transparent
     );
     opacity: 0.8;
-    transition: opacity 0.18s ease;
-  }
-
-  .card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(218, 224, 232, 0.55);
-    box-shadow: 0 26px 50px -22px rgba(0, 0, 0, 0.95);
-  }
-
-  .card:hover::before {
-    opacity: 1;
   }
 
   .card[data-tone='c1'] {
@@ -114,10 +144,23 @@ const n = String(index + 1).padStart(2, '0');
     --from: var(--card-4-from);
     --to: var(--card-4-to);
   }
+  .card[data-tone='c5'] {
+    --from: var(--card-5-from);
+    --to: var(--card-5-to);
+  }
+  .card[data-tone='c6'] {
+    --from: var(--card-6-from);
+    --to: var(--card-6-to);
+  }
 
-  .top {
+  .detail-source {
+    display: none;
+  }
+
+  .head {
     display: grid;
     gap: 0.35rem;
+    padding-right: 2.5rem;
   }
 
   .num {
@@ -128,28 +171,37 @@ const n = String(index + 1).padStart(2, '0');
   }
 
   h3 {
-    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+    font-size: 1.4rem;
     letter-spacing: -0.02em;
   }
 
-  .kicker {
-    font-size: 0.95rem;
-    color: var(--silver);
+  .middle {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    margin-top: 0.75rem;
   }
 
-  .blurb {
+  .kicker {
     font-size: 0.9375rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.82);
+    color: var(--silver);
+    transition: opacity 0.25s ease;
+  }
+
+    /* tags and links never move, whether the card is open or not */
+  .foot {
+    padding-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
   }
 
   .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    gap: 0.35rem;
     list-style: none;
     margin: 0;
-    margin-top: auto;
     padding: 0;
   }
 
@@ -167,27 +219,61 @@ const n = String(index + 1).padStart(2, '0');
   .links {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.25rem;
-    padding-top: 0.5rem;
+    gap: 1rem;
   }
 
   .links a {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    color: inherit;
     text-decoration: none;
     color: var(--silver);
     border-bottom: 1px solid var(--silver-line);
     padding-bottom: 2px;
-    transition: border-color 0.15s ease, gap 0.15s ease;
+    transition: border-color 0.15s ease, gap 0.15s ease, color 0.15s ease;
   }
 
   .links a:hover {
     color: #fff;
     border-color: var(--silver);
-    gap: 0.65rem;
+    gap: 0.6rem;
+  }
+
+  /* the plus in the corner, which turns into a cross once the card is open */
+  .cue {
+    position: absolute;
+    right: 1.25rem;
+    top: 1.25rem;
+    width: 1.9rem;
+    height: 1.9rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid var(--silver-line);
+    color: #fff;
+    font-size: 1.05rem;
+    line-height: 1;
+    transition: transform 0.35s ease, background 0.2s ease;
+  }
+
+  .card:hover .cue,
+  .card:focus-visible .cue {
+    background: rgba(255, 255, 255, 0.26);
+  }
+
+  /* stacked once there is no room to scroll sideways. everything is open, and
+     the card grows to fit rather than scrolling inside itself */
+  @media (max-width: 48rem) {
+    .card {
+      flex: 0 0 auto;
+      cursor: default;
+    }
+
+    .cue {
+      display: none;
+    }
   }
 </style>

@@ -5,9 +5,11 @@ export type Project = {
   kicker: string;
   // two or three sentences on what it does and what is interesting about it
   blurb: string;
+  // the one hard number worth showing, when there is one
+  metric?: string; // kept in cases to be used
   tags: string[];
   // which gradient this card gets, see --card-n-* in global.css
-  tone: 'c1' | 'c2' | 'c3' | 'c4';
+  tone: 'c1' | 'c2' | 'c3' | 'c4' | 'c5' | 'c6';
   links: { label: string; href: string }[];
 };
 
@@ -26,8 +28,8 @@ export const projects: Project[] = [
     tags: ['Python', 'Security', 'CLI', 'pre-commit'],
     tone: 'c1',
     links: [
-      { label: 'Source', href: 'https://github.com/theoithinkk/GaliciousSecretScanner' },
       { label: 'Demo', href: 'https://youtu.be/wDCP1lN0BF0' },
+      { label: 'Source', href: 'https://github.com/theoithinkk/GaliciousSecretScanner' }
     ],
   },
   {
@@ -91,5 +93,18 @@ export const projects: Project[] = [
       { label: 'Source', 
         href: 'https://github.com/claireyams/ResQ-Response_and_Emergency_Support_Queue' }
     ],
+  },
+  {
+    slug: 'car-rentals',
+    title: 'Car Rental DBMS',
+    kicker: 'A desktop records system over a normalised schema',
+    blurb:
+      'A Java desktop application for a car rental business: branches, locations, staff, jobs, ' +
+      'renters and vehicles, each with its own record model over a normalised MySQL schema. ' +
+      'Swing front end, a DAO layer between the views and the database, and login and dashboard ' +
+      'screens on top.',
+    tags: ['Java', 'MySQL', 'Swing', 'JDBC', 'Schema design'],
+    tone: 'c6',
+    links: [{ label: 'Source', href: 'https://github.com/galiciary/ccinfom5' }],
   },
 ];

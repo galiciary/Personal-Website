@@ -42,14 +42,9 @@ import Backdrop from './Backdrop.astro';
         ))
       }
       <li>
-        <button
-          type="button"
-          data-copy={site.email}
-          aria-label={`Copy email address, ${site.email}`}
-          title="Copy email address"
-        >
+        <a href={`mailto:${site.email}`} aria-label="Email" title={site.email}>
           <Icon name="mail" />
-        </button>
+        </a>
       </li>
     </ul>
   </div>
@@ -57,8 +52,6 @@ import Backdrop from './Backdrop.astro';
   <a class="scroll-cue" href="#work" aria-label="Scroll to work">
     <span></span>
   </a>
-
-  <div class="toast" data-copy-toast role="status" aria-live="polite"></div>
 </section>
 
 <style>
@@ -160,8 +153,7 @@ import Backdrop from './Backdrop.astro';
     padding: 0;
   }
 
-  .socials a,
-  .socials button {
+  .socials a {
     display: grid;
     place-items: center;
     width: 2.375rem;
@@ -169,16 +161,9 @@ import Backdrop from './Backdrop.astro';
     border-radius: 4px;
     color: var(--fg-muted);
     transition: color 0.15s ease, background 0.15s ease;
-    /* button reset */
-    background: none;
-    border: 0;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
   }
 
-  .socials a:hover,
-  .socials button:hover {
+  .socials a:hover {
     color: var(--accent);
     background: var(--bg-raised);
   }
@@ -252,55 +237,4 @@ import Backdrop from './Backdrop.astro';
       display: none;
     }
   }
-
-  .toast {
-    position: fixed;
-    left: 50%;
-    bottom: 2rem;
-    z-index: 80;
-    transform: translate(-50%, 0.5rem);
-    padding: 0.6rem 1rem;
-    border: 1px solid var(--silver-line);
-    border-radius: 6px;
-    background: var(--bg-raised);
-    color: var(--fg);
-    font-size: 0.875rem;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.18s ease, transform 0.18s ease;
-  }
-
-  .toast[data-visible] {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
 </style>
-
-<script>
-  const toast = document.querySelector<HTMLElement>('[data-copy-toast]');
-  let hideTimer: number | undefined;
-
-  function announce(message: string) {
-    if (!toast) return;
-    toast.textContent = message;
-    toast.setAttribute('data-visible', '');
-    window.clearTimeout(hideTimer);
-    hideTimer = window.setTimeout(() => toast.removeAttribute('data-visible'), 2000);
-  }
-
-  document.addEventListener('click', async (event) => {
-    const target = event.target as HTMLElement | null;
-    const trigger = target?.closest<HTMLElement>('[data-copy]');
-    const value = trigger?.dataset.copy;
-    if (!value) return;
-
-    try {
-      await navigator.clipboard.writeText(value);
-      announce('Email copied to clipboard');
-    } catch {
-      // clipboard api needs a secure context and can be blocked outright
-      announce(`Couldn't copy, the address is ${value}`);
-    }
-  });
-</script>
