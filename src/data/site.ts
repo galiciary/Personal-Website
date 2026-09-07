@@ -5,10 +5,12 @@
 export const site = {
   name: 'Lance',
   fullName: 'Lance Krystofer A. Galicia',
-  tagline: 'CS Student - Cybersecurity & Software', // one liner; make it punchier
+  tagline: 'Building software. Securing systems. Solving problems.', // one liner; make it punchier
   intro:
-    'CS student at De La Salle University Manila interested in ' +
-    'cybersecurity, software development, and networking.',
+    '3rd year Computer Science student at De La Salle University interested in ' +
+    'cybersecurity, software development, networking, and finance.',
+  // path to your photo under public/, leave empty to show the placeholder frame
+  portrait: '',
   location: 'Manila, Philippines',
   email: 'lance_galicia@dlsu.edu.ph',
 } as const;

@@ -1,7 +1,11 @@
 ---
-/**
- * Animated backdrop
- */
+// animated hero backdrop: drifting nodes joined by short links when they pass
+// near each other. canvas, no dependencies
+//
+// things it is careful about:
+//   honours prefers-reduced-motion, draws one still frame and never animates
+//   stops the loop entirely when the hero scrolls out of view
+//   density scales with area, so a phone does not run a desktop particle count
 ---
 
 <canvas class="backdrop" data-backdrop aria-hidden="true"></canvas>
@@ -14,7 +18,7 @@
     height: 100%;
     display: block;
     pointer-events: none;
-    /* Fades out downward so the section boundary stays clean. */
+    /* fades out downward so the section boundary stays clean */
     mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
   }
@@ -29,7 +33,7 @@
   if (canvas && ctx) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    // one node per ~18k device-independent pixels, clamped at both ends.
+    // one node per ~18k device-independent pixels, clamped at both ends
     const DENSITY = 18000;
     const MAX_NODES = 90;
     const LINK_DIST = 130;
@@ -67,14 +71,14 @@
         n.x += n.vx;
         n.y += n.vy;
 
-        // wrap rather than bounce, bouncing reads as a boundary, wrapping doesn't.
+        // wrap rather than bounce, bouncing reads as a boundary and wrapping does not
         if (n.x < -20) n.x = width + 20;
         if (n.x > width + 20) n.x = -20;
         if (n.y < -20) n.y = height + 20;
         if (n.y > height + 20) n.y = -20;
       }
 
-      // links first, so nodes sit on top of them.
+      // links first, so nodes sit on top of them
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const a = nodes[i];
@@ -118,7 +122,7 @@
     function reset() {
       build();
       if (reduced.matches) {
-        // still frame, so the hero isn't empty for reduced-motion users.
+        // still frame, so the hero is not empty for reduced-motion users
         running = false;
         step();
       }
@@ -127,7 +131,7 @@
     reset();
     start();
 
-    // only animate while the hero is actually on screen.
+    // only animate while the hero is actually on screen
     const hero = canvas.parentElement;
     if (hero && 'IntersectionObserver' in window) {
       new IntersectionObserver(

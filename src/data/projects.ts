@@ -1,18 +1,17 @@
 export type Project = {
   slug: string;
-  title: string; 
-  // one line under the title 
+  title: string;
+  // one line under the title, what it is in plain words
   kicker: string;
-  // two or three sentences. what it does and what's interesting about it
+  // two or three sentences on what it does and what is interesting about it
   blurb: string;
-  /**
-   * fill in with numbers
-   * wll be omitted if left undefined
-   */
+  // the hard fact that makes a reviewer stop, numbers beat adjectives
+  // todo: fill these in, detection counts, model metrics, rule coverage, users
+  // leave as undefined and the card just omits the line
   metric?: string;
   tags: string[];
-
-  tone: 'azure' | 'cobalt' | 'navy' | 'midnight';
+  // which gradient this card gets, see --card-n-* in global.css
+  tone: 'c1' | 'c2' | 'c3' | 'c4';
   links: { label: string; href: string }[];
 };
 
@@ -27,9 +26,9 @@ export const projects: Project[] = [
       'signature library for known formats, and a Shannon-entropy fallback for custom tokens no ' +
       'pattern recognises. Every finding is deduplicated, scored and redacted — no output, in any ' +
       'format, ever contains a full secret.',
-    // metric: 'TODO — e.g. "N vendor patterns · N test repos"',
+    // metric: 'todo, e.g. "N vendor patterns, N test repos"',
     tags: ['Python', 'Security', 'CLI', 'pre-commit'],
-    tone: 'red',
+    tone: 'c1',
     links: [
       { label: 'Source', href: 'https://github.com/galiciary/GaliciousSecretScanner' },
       { label: 'Demo video', href: 'https://youtu.be/wDCP1lN0BF0' },
@@ -44,9 +43,9 @@ export const projects: Project[] = [
       'Deterministic rules catch formatting violations; an AI layer catches the contextual errors ' +
       'that need human-level reading. Built as a layered TypeScript service — routes, controllers, ' +
       'services, repositories — with a Jest suite, GitHub Actions CI, and a Docker image.',
-    // metric: 'TODO — e.g. "N rules · N document types"',
+    // metric: 'todo, e.g. "N rules, N document types"',
     tags: ['TypeScript', 'Express', 'Supabase', 'Gemini', 'Docker'],
-    tone: 'blue',
+    tone: 'c2',
     links: [{ label: 'Source', href: 'https://github.com/dlsu-lscs/check-republic' }],
   },
   {
@@ -58,9 +57,9 @@ export const projects: Project[] = [
       'written from scratch rather than pulled off the shelf. The repo carries the whole pipeline — ' +
       'dataset compilation, training, evaluation — plus a test suite that verifies the metrics ' +
       'themselves, not just the code paths.',
-    // metric: 'TODO — accuracy / F1 on the held-out set',
+    // metric: 'todo, accuracy and f1 on the held-out set',
     tags: ['Python', 'Machine learning', 'NLP'],
-    tone: 'green',
+    tone: 'c3',
     links: [{ label: 'Source', href: 'https://github.com/galiciary/pinoybot' }],
   },
   {
@@ -72,7 +71,7 @@ export const projects: Project[] = [
       'earthquakes and floods — the kind of channel that goes missing exactly when the Philippines ' +
       'needs it. Full MVC application with accounts, posting, profiles and uploads.',
     tags: ['Node.js', 'Express', 'Handlebars', 'MongoDB'],
-    tone: 'violet',
+    tone: 'c4',
     links: [{ label: 'Source', href: 'https://github.com/galiciary/-CCAPDEV-MCO' }],
   },
 ];

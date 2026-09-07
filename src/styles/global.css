@@ -16,15 +16,26 @@
   --accent-dim: #4a7fbd;
   --accent-wash: rgba(122, 183, 255, 0.14);
 
-  /* project block colours */
-  --proj-azure: #2f66b5;
-  --proj-azure-deep: #21498a;
-  --proj-cobalt: #27508f;
-  --proj-cobalt-deep: #1a386b;
-  --proj-navy: #1f3f70;
-  --proj-navy-deep: #142a4f;
-  --proj-midnight: #1a3050;
-  --proj-midnight-deep: #101f36;
+  /* project cards: blue gradients with a silver rim and silver detail. each
+     card steps a little deeper than the last, and the gradient inside each one
+     carries the variation so the set does not read flat */
+  --card-1-from: #4079c8;
+  --card-1-to: #16264a;
+  --card-2-from: #3a6bb5;
+  --card-2-to: #151f3f;
+  --card-3-from: #35599e;
+  --card-3-to: #131c38;
+  --card-4-from: #2e4c88;
+  --card-4-to: #111930;
+
+  /* one gradient shared by every blue surface: buttons, brand mark, skip link */
+  --blue-grad: linear-gradient(150deg, #4079c8 0%, #23407a 100%);
+  --blue-grad-hover: linear-gradient(150deg, #4d88da 0%, #2c4f94 100%);
+
+  /* silver */
+  --silver: #dae0e8;
+  --silver-dim: #a3aebd;
+  --silver-line: rgba(218, 224, 232, 0.32);
 
   /* type */
   --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
@@ -128,6 +139,7 @@ img {
   border-top: 1px solid var(--line);
 }
 
+/* alternating bands give the page a rhythm instead of one flat wall of dark */
 .section[data-tone='raised'] {
   background: var(--bg-raised);
 }
@@ -136,6 +148,24 @@ img {
   background: var(--bg-sunken);
 }
 
+/* light band. redefining the tokens here means every child inverts with it,
+   so nothing inside needs to know which band it is sitting in */
+.section[data-tone='light'] {
+  background: #eef1f5;
+  color: #14161a;
+
+  --fg: #14161a;
+  --fg-muted: #4b535e;
+  --fg-faint: #79818d;
+  --line: #d5dbe3;
+  --line-strong: #bcc4ce;
+  --bg-raised: #e2e7ee;
+  --accent: #1f5fb0;
+  --accent-dim: #17457f;
+  --accent-wash: rgba(31, 95, 176, 0.12);
+}
+
+/* card grid used by the work section */
 .card-grid {
   display: grid;
   gap: 1.25rem;
@@ -174,7 +204,7 @@ img {
   font-size: 1.0625rem;
 }
 
-/* placeholder */
+/* placeholder, remove as each section gets real content */
 .stub {
   margin-top: 2rem;
   padding: 1.5rem;
@@ -184,6 +214,26 @@ img {
   color: var(--fg-faint);
   font-family: var(--font-mono);
   font-size: 0.8125rem;
+}
+
+/* scroll reveal. the has-reveal class is set by script, so with no javascript
+   every section simply stays visible instead of never appearing */
+.has-reveal .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.has-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .has-reveal .reveal {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .visually-hidden {
@@ -202,8 +252,9 @@ img {
   left: var(--gutter);
   top: -100%;
   z-index: 100;
-  background: var(--accent);
-  color: var(--bg);
+  background: var(--blue-grad);
+  border: 1px solid var(--silver-line);
+  color: #fff;
   padding: 0.6rem 1rem;
   border-radius: 0 0 6px 6px;
   font-weight: 600;
@@ -212,5 +263,5 @@ img {
 
 .skip-link:focus {
   top: 0;
-  color: var(--bg);
+  color: #fff;
 }

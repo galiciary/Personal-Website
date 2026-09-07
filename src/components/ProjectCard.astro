@@ -39,67 +39,82 @@ const n = String(index + 1).padStart(2, '0');
 
 <style>
   .card {
-    --card: var(--proj-azure);
-    --card-deep: var(--proj-azure-deep);
-    --card-ink: #fff;
+    --from: var(--card-1-from);
+    --to: var(--card-1-to);
 
     position: relative;
+    isolation: isolate;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     padding: clamp(1.5rem, 3vw, 2rem);
-    border-radius: 10px;
-    /* Slight gradient keeps a large flat block from looking like a swatch. */
-    background: linear-gradient(160deg, var(--card) 0%, var(--card-deep) 100%);
-    color: var(--card-ink);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset,
-      0 18px 40px -24px rgba(0, 0, 0, 0.9);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    border-radius: 12px;
+    /* diagonal blue gradient, the light corner reads as where the light is */
+    background: linear-gradient(150deg, var(--from) 0%, var(--to) 78%);
+    color: #fff;
+    border: 1px solid var(--silver-line);
+    box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
   }
 
+  /* silver sheen across the top-left corner */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+      120% 80% at 0% 0%,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.04) 38%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  /* bright silver rule along the top edge */
   .card::before {
     content: '';
     position: absolute;
     inset: 0 0 auto;
-    height: 2px;
-    border-radius: 10px 10px 0 0;
+    height: 1px;
     background: linear-gradient(
       90deg,
       transparent,
-      var(--accent) 25%,
-      var(--accent) 75%,
+      var(--silver) 20%,
+      var(--silver) 60%,
       transparent
     );
-    opacity: 0.55;
+    opacity: 0.8;
     transition: opacity 0.18s ease;
   }
 
   .card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14) inset,
-      0 26px 50px -22px rgba(0, 0, 0, 0.95),
-      0 0 0 1px var(--accent-wash);
+    border-color: rgba(218, 224, 232, 0.55);
+    box-shadow: 0 26px 50px -22px rgba(0, 0, 0, 0.95);
   }
 
   .card:hover::before {
     opacity: 1;
   }
 
-  .card[data-tone='azure'] {
-    --card: var(--proj-azure);
-    --card-deep: var(--proj-azure-deep);
+  .card[data-tone='c1'] {
+    --from: var(--card-1-from);
+    --to: var(--card-1-to);
   }
-  .card[data-tone='cobalt'] {
-    --card: var(--proj-cobalt);
-    --card-deep: var(--proj-cobalt-deep);
+  .card[data-tone='c2'] {
+    --from: var(--card-2-from);
+    --to: var(--card-2-to);
   }
-  .card[data-tone='navy'] {
-    --card: var(--proj-navy);
-    --card-deep: var(--proj-navy-deep);
+  .card[data-tone='c3'] {
+    --from: var(--card-3-from);
+    --to: var(--card-3-to);
   }
-  .card[data-tone='midnight'] {
-    --card: var(--proj-midnight);
-    --card-deep: var(--proj-midnight-deep);
+  .card[data-tone='c4'] {
+    --from: var(--card-4-from);
+    --to: var(--card-4-to);
   }
 
   .top {
@@ -111,7 +126,7 @@ const n = String(index + 1).padStart(2, '0');
     font-family: var(--font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.14em;
-    opacity: 0.7;
+    color: var(--silver-dim);
   }
 
   h3 {
@@ -121,13 +136,13 @@ const n = String(index + 1).padStart(2, '0');
 
   .kicker {
     font-size: 0.95rem;
-    opacity: 0.85;
+    color: var(--silver);
   }
 
   .blurb {
     font-size: 0.9375rem;
     line-height: 1.6;
-    opacity: 0.92;
+    color: rgba(255, 255, 255, 0.82);
   }
 
   .metric {
@@ -135,7 +150,9 @@ const n = String(index + 1).padStart(2, '0');
     font-size: 0.8125rem;
     padding: 0.5rem 0.7rem;
     border-radius: 5px;
-    background: rgba(0, 0, 0, 0.22);
+    background: rgba(0, 0, 0, 0.28);
+    border: 1px solid var(--silver-line);
+    color: var(--silver);
     align-self: start;
   }
 
@@ -154,7 +171,9 @@ const n = String(index + 1).padStart(2, '0');
     letter-spacing: 0.04em;
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--silver-line);
+    color: var(--silver);
   }
 
   .links {
@@ -173,14 +192,15 @@ const n = String(index + 1).padStart(2, '0');
     font-weight: 600;
     color: inherit;
     text-decoration: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    color: var(--silver);
+    border-bottom: 1px solid var(--silver-line);
     padding-bottom: 2px;
     transition: border-color 0.15s ease, gap 0.15s ease;
   }
 
   .links a:hover {
-    color: inherit;
-    border-color: #fff;
+    color: #fff;
+    border-color: var(--silver);
     gap: 0.65rem;
   }
 </style>
