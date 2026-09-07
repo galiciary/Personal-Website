@@ -79,7 +79,7 @@ export const projects: Project[] = [
     kicker: 'Coordination forum for disaster response',
     blurb:
       'A centralised forum for verifying updates and coordinating relief during typhoons, ' +
-      'earthquakes and floods — the kind of channel that goes missing exactly when the Philippines ' +
+      'earthquakes and floods. This is the kind of channel that goes missing exactly when the Philippines ' +
       'needs it. Full MVC application with accounts, posting, profiles and uploads.',
     tags: ['Node.js', 'Express', 'Handlebars', 'MongoDB'],
     tone: 'c4',
