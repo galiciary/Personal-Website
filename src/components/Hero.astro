@@ -20,8 +20,6 @@ import Backdrop from './Backdrop.astro';
       }
     </div>
 
-    <p class="kicker">{site.location}</p>
-
     <h1>{site.name}</h1>
 
     <p class="tagline">{site.tagline}</p>
@@ -93,25 +91,6 @@ import Backdrop from './Backdrop.astro';
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .kicker {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--fg-faint);
-    margin: 1.5rem 0 0.75rem;
-  }
-
-  .kicker::before {
-    content: '';
-    display: inline-block;
-    width: 1.75rem;
-    height: 1px;
-    background: var(--accent-dim);
-    vertical-align: middle;
-    margin-right: 0.75rem;
   }
 
   h1 {

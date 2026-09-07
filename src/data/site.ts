@@ -10,7 +10,7 @@ export const site = {
     '3rd year Computer Science student at De La Salle University interested in ' +
     'cybersecurity, software development, networking, and finance.',
   // path to your photo under public/, leave empty to show the placeholder frame
-  portrait: '',
+  portrait: '/images/lance.jpg',
   location: 'Manila, Philippines',
   email: 'lance_galicia@dlsu.edu.ph',
 } as const;
