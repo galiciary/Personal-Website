@@ -19,6 +19,8 @@ const n = String(index + 1).padStart(2, '0');
 
   <p class="blurb">{project.blurb}</p>
 
+  {project.role && <p class="role">{project.role}</p>}
+
   {project.metric && <p class="metric">{project.metric}</p>}
 
   <ul class="tags">
@@ -143,6 +145,13 @@ const n = String(index + 1).padStart(2, '0');
     font-size: 0.9375rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.82);
+  }
+
+  .role {
+    font-size: 0.8125rem;
+    color: var(--silver);
+    padding-left: 0.75rem;
+    border-left: 2px solid var(--silver-line);
   }
 
   .metric {

@@ -5,6 +5,8 @@ export type Project = {
   kicker: string;
   // two or three sentences on what it does and what is interesting about it
   blurb: string;
+  // what you personally did, for team projects. omit on solo work
+  role?: string;
   // the hard fact that makes a reviewer stop, numbers beat adjectives
   // todo: fill these in, detection counts, model metrics, rule coverage, users
   // leave as undefined and the card just omits the line
@@ -35,32 +37,39 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'check-republic',
-    title: 'Check Republic',
-    kicker: 'Automated document auditing for LSCS',
+    slug: 'dss-dashboard',
+    title: 'DSS Dashboard',
+    kicker: 'Membership and event analytics for DLSU DSS',
     blurb:
-      'Screens student-organisation pre- and post-activity documents against the 51st CSO Manual. ' +
-      'Deterministic rules catch formatting violations; an AI layer catches the contextual errors ' +
-      'that need human-level reading. Built as a layered TypeScript service — routes, controllers, ' +
-      'services, repositories — with a Jest suite, GitHub Actions CI, and a Docker image.',
-    // metric: 'todo, e.g. "N rules, N document types"',
-    tags: ['TypeScript', 'Express', 'Supabase', 'Gemini', 'Docker'],
+      'An internal Streamlit dashboard the DLSU Data Science Society uses to track membership, ' +
+      'event attendance and satisfaction. Raw form exports land as messy spreadsheets; a cleaning ' +
+      'layer normalises them before anything is charted, and the overview page turns the result ' +
+      'into headline counts, engagement rate, satisfaction and attendance trends, and event rankings.',
+    role: 'My part: the data cleaning pipeline, the Dashboard Overview page, and the documentation.',
+    tags: ['Python', 'Streamlit', 'pandas', 'Supabase', 'Altair'],
     tone: 'c2',
-    links: [{ label: 'Source', href: 'https://github.com/dlsu-lscs/check-republic' }],
+    links: [{ label: 'Source', href: 'https://github.com/UrMomLastNite/dss-dashboard' }],
   },
   {
-    slug: 'pinoybot',
-    title: 'PinoyBot',
-    kicker: 'Text classification for Filipino and Taglish',
+    slug: 'full-capacity',
+    title: 'Full Capacity',
+    kicker: 'An interactive exhibit on the evolution of storage',
     blurb:
-      'A classifier trained on a hand-annotated Filipino/Taglish dataset, with feature engineering ' +
-      'written from scratch rather than pulled off the shelf. The repo carries the whole pipeline — ' +
-      'dataset compilation, training, evaluation — plus a test suite that verifies the metrics ' +
-      'themselves, not just the code paths.',
-    // metric: 'todo, accuracy and f1 on the held-out set',
-    tags: ['Python', 'Machine learning', 'NLP'],
+      'Five chapters walking from punch cards and magnetic drums through disks, optical media and ' +
+      'NAND to DNA and cloud storage. Rather than illustrating the ideas, the site simulates them: ' +
+      'a punch-card encoder, a seeking hard disk, an optical pit-and-land encoder, floating-gate and ' +
+      'wear-levelling animations, IOPS gauges and a price-crossover race. Around thirty interactive ' +
+      'components, built as React islands inside an Astro and MDX site.',
+    role: 'TODO: your part on this one.',
+    tags: ['Astro', 'React', 'MDX', 'Data viz', 'GitHub Pages'],
     tone: 'c3',
-    links: [{ label: 'Source', href: 'https://github.com/galiciary/pinoybot' }],
+    links: [
+      // todo: add the github pages url once confirmed
+      {
+        label: 'Source',
+        href: 'https://github.com/skyparado/WebsiteArchive_Evolution_of_Computer_Data_Storage',
+      },
+    ],
   },
   {
     slug: 'resq',
@@ -70,8 +79,10 @@ export const projects: Project[] = [
       'A centralised forum for verifying updates and coordinating relief during typhoons, ' +
       'earthquakes and floods — the kind of channel that goes missing exactly when the Philippines ' +
       'needs it. Full MVC application with accounts, posting, profiles and uploads.',
+    role: 'Four-person group project for CCAPDEV.',
     tags: ['Node.js', 'Express', 'Handlebars', 'MongoDB'],
     tone: 'c4',
+    // todo: add the deployment url
     links: [{ label: 'Source', href: 'https://github.com/galiciary/-CCAPDEV-MCO' }],
   },
 ];
