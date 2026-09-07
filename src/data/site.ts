@@ -3,7 +3,7 @@
  */
 
 export const site = {
-  name: 'Lance',
+  name: 'Lance Galicia',
   fullName: 'Lance Krystofer A. Galicia',
   tagline: 'Building software. Securing systems. Solving problems.', // one liner; make it punchier
   intro:
