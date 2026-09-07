@@ -15,7 +15,7 @@ import Icon from './Icon.astro';
 
     <div class="actions">
       <a class="btn btn-primary" href="#work">See the work</a>
-      <a class="btn" href={`mailto:${site.email}`}>Get in touch</a>
+      <a class="btn" href="#contact">Get in touch</a>
     </div>
 
     <ul class="socials">
@@ -28,8 +28,20 @@ import Icon from './Icon.astro';
           </li>
         ))
       }
+      <li>
+        <button
+          type="button"
+          data-copy={site.email}
+          aria-label={`Copy email address, ${site.email}`}
+          title="Copy email address"
+        >
+          <Icon name="mail" />
+        </button>
+      </li>
     </ul>
   </div>
+
+  <div class="toast" data-copy-toast role="status" aria-live="polite"></div>
 </section>
 
 <style>
@@ -39,7 +51,6 @@ import Icon from './Icon.astro';
     overflow: hidden;
   }
 
-  /* A faint grid, fading out downward — quiet texture, no animation. */
   .hero::before {
     content: '';
     position: absolute;
@@ -140,7 +151,8 @@ import Icon from './Icon.astro';
     padding: 0;
   }
 
-  .socials a {
+  .socials a,
+  .socials button {
     display: grid;
     place-items: center;
     width: 2.375rem;
@@ -148,10 +160,100 @@ import Icon from './Icon.astro';
     border-radius: 4px;
     color: var(--fg-muted);
     transition: color 0.15s ease, background 0.15s ease;
+    /* button reset */
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
   }
 
-  .socials a:hover {
+  .socials a:hover,
+  .socials button:hover {
     color: var(--accent);
     background: var(--bg-raised);
   }
+
+    .email-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.4rem 0.7rem;
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .email-line:hover {
+    color: var(--fg);
+    border-color: var(--line-strong);
+  }
+
+  .email-line .hint {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-faint);
+  }
+
+  .email-line:hover .hint {
+    color: var(--accent);
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 2rem;
+    z-index: 80;
+    transform: translate(-50%, 0.5rem);
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--bg-raised);
+    color: var(--fg);
+    font-size: 0.875rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .toast[data-visible] {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 </style>
+
+<script>
+  const toast = document.querySelector<HTMLElement>('[data-copy-toast]');
+  let hideTimer: number | undefined;
+
+  function announce(message: string) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.setAttribute('data-visible', '');
+    window.clearTimeout(hideTimer);
+    hideTimer = window.setTimeout(() => toast.removeAttribute('data-visible'), 2000);
+  }
+
+  document.addEventListener('click', async (event) => {
+    const target = event.target as HTMLElement | null;
+    const trigger = target?.closest<HTMLElement>('[data-copy]');
+    const value = trigger?.dataset.copy;
+    if (!value) return;
+
+    try {
+      await navigator.clipboard.writeText(value);
+      announce('Email copied to clipboard');
+    } catch {
+      // clipboard API needs a secure context and can be blocked outright.
+      announce(`Couldn't copy, the address is ${value}`);
+    }
+  });
+</script>

@@ -1,15 +1,14 @@
 /**
- * Lots of placeholders: will still edit
+ * 
  */
 
 export const site = {
   name: 'Lance',
   fullName: 'Lance Krystofer A. Galicia',
-  // one liner
-  tagline: 'CS student',
-  // put longer bio in about page
+  tagline: 'CS Student - Cybersecurity & Software', // one liner; make it punchier
   intro:
-    '3rd year Computer Science student at De la Salle University Manila', // add more here
+    'CS student at De La Salle University Manila interested in ' +
+    'cybersecurity, software development, and networking.',
   location: 'Manila, Philippines',
   email: 'lance_galicia@dlsu.edu.ph',
 } as const;
@@ -24,12 +23,11 @@ export const nav = [
 export type SocialLink = {
   label: string;
   href: string;
-  /** inline SVG path data, 24x24 viewBox */
+  
   icon: 'github' | 'linkedin' | 'mail';
 };
 
 export const socials: SocialLink[] = [
-  { label: 'GitHub', href: 'https://github.com/', icon: 'github' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/', icon: 'linkedin' },
-  { label: 'Email', href: `mailto:${site.email}`, icon: 'mail' },
+  { label: 'GitHub', href: 'https://github.com/galiciary', icon: 'github' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/lancegalicia/', icon: 'linkedin' },
 ];
