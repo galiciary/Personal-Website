@@ -107,7 +107,7 @@ export const timeline: TimelineEntry[] = [
     kind: 'work',
   },
   {
-    title: 'Started BS Computer Science',
+    title: 'Started BS Computer Science, Major in Network and Information Security',
     subtitle: 'De La Salle University, Manila',
     date: 'September 2024',
     kind: 'education',
