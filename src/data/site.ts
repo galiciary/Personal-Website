@@ -14,13 +14,13 @@ export const site = {
   resume: '/Lance-Galicia-Resume.pdf',
   location: 'Manila, Philippines',
   email: 'lance_galicia@dlsu.edu.ph',
-  // a username has no public profile url, so the icon copies it instead
   discord: 'motop4pi',
   // this site's own repository, linked from the footer
   repo: 'https://github.com/galiciary/galiciary.github.io',
 } as const;
 
 export const nav = [
+  { label: 'Home', href: '#top' },
   { label: 'Projects', href: '#work' },
   { label: 'Timeline', href: '#timeline' },
 ] as const;
@@ -28,6 +28,8 @@ export const nav = [
 export type SocialLink = {
   label: string;
   href: string;
+  // shown instead of the url in the contact list, for links that read badly
+  display?: string;
   
   icon: 'github' | 'linkedin' | 'mail' | 'discord';
 };
@@ -35,4 +37,10 @@ export type SocialLink = {
 export const socials: SocialLink[] = [
   { label: 'GitHub', href: 'https://github.com/galiciary', icon: 'github' },
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/lancegalicia/', icon: 'linkedin' },
+  {
+    label: 'Discord',
+    href: 'https://discord.com/users/821402496509280297',
+    display: 'motop4pi',
+    icon: 'discord',
+  },
 ];

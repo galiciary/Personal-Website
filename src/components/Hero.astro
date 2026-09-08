@@ -42,17 +42,6 @@ import Backdrop from './Backdrop.astro';
         ))
       }
       <li>
-        <button
-          type="button"
-          class="copy"
-          data-copy={site.discord}
-          aria-label={`Copy Discord username ${site.discord}`}
-          title={`Discord: ${site.discord}`}
-        >
-          <Icon name="discord" />
-        </button>
-      </li>
-      <li>
         <a href={`mailto:${site.email}`} target="_blank" rel="noopener" aria-label="Email" title={site.email}>
           <Icon name="mail" />
         </a>
@@ -164,8 +153,7 @@ import Backdrop from './Backdrop.astro';
     padding: 0;
   }
 
-  .socials a,
-  .socials .copy {
+  .socials a {
     display: grid;
     place-items: center;
     width: 2.375rem;
@@ -175,23 +163,9 @@ import Backdrop from './Backdrop.astro';
     transition: color 0.15s ease, background 0.15s ease;
   }
 
-  .socials a:hover,
-  .socials .copy:hover {
+  .socials a:hover {
     color: var(--accent);
     background: var(--bg-raised);
-  }
-
-  .socials .copy {
-    border: 0;
-    padding: 0;
-    background: none;
-    cursor: pointer;
-    font: inherit;
-  }
-
-  /* brief confirmation, the icon itself does not change */
-  .socials .copy.is-copied {
-    color: var(--accent);
   }
 
   /* small round avatar, silver rim to match the cards */
@@ -264,28 +238,3 @@ import Backdrop from './Backdrop.astro';
     }
   }
 </style>
-
-<script>
-  // a discord username is not a link, so the icon copies it to the clipboard
-  for (const button of document.querySelectorAll<HTMLButtonElement>('.copy[data-copy]')) {
-    button.addEventListener('click', async () => {
-      const value = button.dataset.copy;
-      if (!value) return;
-
-      try {
-        await navigator.clipboard.writeText(value);
-      } catch {
-        return;
-      }
-
-      const previous = button.title;
-      button.title = 'Copied';
-      button.classList.add('is-copied');
-
-      window.setTimeout(() => {
-        button.title = previous;
-        button.classList.remove('is-copied');
-      }, 1400);
-    });
-  }
-</script>

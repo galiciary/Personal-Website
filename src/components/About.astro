@@ -21,15 +21,11 @@ import Backdrop from './Backdrop.astro';
             <li>
               <span class="label">{s.label}:</span>
               <a href={s.href} target="_blank" rel="me noopener">
-                {s.href.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, '')}
+                {s.display ?? s.href.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, '')}
               </a>
             </li>
           ))
         }
-        <li>
-          <span class="label">Discord:</span>
-          <span class="value">{site.discord}</span>
-        </li>
       </ul>
 
       <ul class="social-icons">
@@ -59,7 +55,6 @@ import Backdrop from './Backdrop.astro';
     <div class="col">
       <h2>Site map</h2>
       <ul class="map">
-        <li><a href="#top">Home</a></li>
         {
           nav.map((item) => (
             <li>
