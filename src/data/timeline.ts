@@ -57,6 +57,23 @@ export const timeline: TimelineEntry[] = [
     ],
   },
   {
+    title: 'Publicity and Promotions, Animusika 2026',
+    blurb:
+      'Wrote the captions behind the event’s social posts and helped shape the marketing and ' +
+      'video concepts used to build reach and engagement.',
+    date: 'May 2026 – July 2026',
+    kind: 'event',
+  },
+  {
+    title: 'ISC2 Certified in Cybersecurity (CC) Passer',
+    subtitle: 'ISC2',
+    blurb:
+      'Passed the entry-level certification exam covering security principles, access control, ' +
+      'network security, and security operations.',
+    date: 'March 2026',
+    kind: 'certification',
+  },
+    {
     title: 'ResQ: Response and Emergency Support Queue',
     subtitle: 'Web Application Development',
     blurb:
@@ -66,14 +83,6 @@ export const timeline: TimelineEntry[] = [
     kind: 'project',
     links: [{ label: 'Deployment Link', 
     href: 'https://resq-kkve.onrender.com/' }],
-  },
-  {
-    title: 'Publicity and Promotions, Animusika 2026',
-    blurb:
-      'Wrote the captions behind the event’s social posts and helped shape the marketing and ' +
-      'video concepts used to build reach and engagement.',
-    date: 'May 2026 – July 2026',
-    kind: 'event',
   },
   {
     title: 'Macky vs Malware',
@@ -86,15 +95,24 @@ export const timeline: TimelineEntry[] = [
     kind: 'event',
   },
   {
-    title: 'ISC2 Certified in Cybersecurity (CC) Passer',
-    subtitle: 'ISC2',
+    title: 'Documentations, AnimoChristmas 2025',
     blurb:
-      'Passed the entry-level certification exam covering security principles, access control, ' +
-      'network security, and security operations.',
-    date: 'March 2026',
-    kind: 'certification',
+      'Handled the event’s documentation, reviewing it for inconsistencies and keeping the ' +
+      'records usable for the committees that depended on them.',
+    date: 'October 2025 – December 2025',
+    kind: 'event',
   },
   {
+    title: 'Forza Rentals: Car Rental DBMS',
+    subtitle: 'Information Management',
+    blurb:
+      'A Java desktop records system over a normalised MySQL schema, with a DAO layer between ' +
+      'the Swing views and the database.',
+    date: 'September – November 2025',
+    kind: 'project',
+    links: [{ label: 'Source', href: 'https://github.com/galiciary/ccinfom5' }],
+  },
+    {
     title: 'Accepted as a Junior Officer',
     subtitle: 'La Salle Computer Society',
     blurb:
@@ -113,24 +131,6 @@ export const timeline: TimelineEntry[] = [
     kind: 'role',
     links: [{ label: 'Deployment Link', 
     href: 'https://dlsu-dss-dashboard.onrender.com/' }],
-  },
-  {
-    title: 'Documentations, AnimoChristmas 2025',
-    blurb:
-      'Handled the event’s documentation, reviewing it for inconsistencies and keeping the ' +
-      'records usable for the committees that depended on them.',
-    date: 'October 2025 – December 2025',
-    kind: 'event',
-  },
-  {
-    title: 'Car Rental DBMS',
-    subtitle: 'Information Management',
-    blurb:
-      'A Java desktop records system over a normalised MySQL schema, with a DAO layer between ' +
-      'the Swing views and the database.',
-    date: 'November 2025',
-    kind: 'project',
-    links: [{ label: 'Source', href: 'https://github.com/galiciary/ccinfom5' }],
   },
   {
     title: 'Executive, External Relations',
