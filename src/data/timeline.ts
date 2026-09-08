@@ -24,11 +24,11 @@ export const timeline: TimelineEntry[] = [
     links: [{ label: 'Demo', href: 'https://youtu.be/wDCP1lN0BF0' }],
   },
   {
-    title: 'First hackathon',
+    title: 'First Capture the Flag',
     subtitle: 'Advanced and Offensive Security',
     blurb:
-      'My first time competing in a hackathon. Worked with a team to [what you built or ' +
-      'attacked] under a fixed deadline, on top of the coursework running at the same time.',
+      'My first time competing in a CTF with twenty flags, worked through ' +
+      'as a team against the clock alongside the coursework running at the time.',
     date: 'July 2026',
     kind: 'event',
   },
@@ -73,7 +73,7 @@ export const timeline: TimelineEntry[] = [
     blurb:
       'Spearheaded an awareness event on the risks people meet online, from malware and ' +
       'phishing to the habits that let them through, planned over three months with the ' +
-      'organisation.',
+      'team.',
     date: 'January 2026 – March 2026',
     kind: 'event',
   },
@@ -91,7 +91,7 @@ export const timeline: TimelineEntry[] = [
     subtitle: 'La Salle Computer Society',
     blurb:
       'Joined the junior officer training programme, taking part in the team building and ' +
-      'technical events the organisation ran through the year.',
+      'technical events the organization ran through the year.',
     date: 'September 2025 – August 2026',
     kind: 'role',
   },
@@ -117,11 +117,37 @@ export const timeline: TimelineEntry[] = [
     links: [{ label: 'Source', href: 'https://github.com/galiciary/ccinfom5' }],
   },
   {
+    title: 'Accepted into the minor in Financial Risk and Analytics',
+    subtitle: 'De La Salle University, Manila',
+    blurb:
+      'Applied and was accepted, then rescinded the offer later in the year after deciding my ' +
+      'interest sat closer to investment management than to risk analytics.',
+    date: 'February 2025',
+    kind: 'education',
+  },
+  {
+    title: 'Executive, External Relations',
+    subtitle: 'DLSU CATCH 2T28',
+    blurb:
+      'Built connections with other organizations, handling partnership correspondence and ' +
+      'keeping the agreements on track through to fulfillment.',
+    date: 'January 2025 – April 2025',
+    kind: 'role',
+  },
+  {
     title: 'Associate, External Relations',
     subtitle: 'DLSU Data Science Society',
     blurb:
-      'Sourced speakers and partners for data science seminars. Held alongside other external relations ' +
-      'and marketing roles.',
+      'Sourced speakers and partners for data science seminars.',
+    date: 'September 2024 – August 2025',
+    kind: 'role',
+  },
+  {
+    title: 'Executive, Creatives',
+    subtitle: 'DLSU Microsoft Student Community',
+    blurb:
+      'Designed publicity materials for community events and helped shape the design direction ' +
+      'behind them.',
     date: 'September 2024 – August 2025',
     kind: 'role',
   },
