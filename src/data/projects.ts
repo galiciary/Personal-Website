@@ -39,7 +39,7 @@ export const projects: Project[] = [
     blurb:
       'An internal Streamlit dashboard the DLSU Data Science Society uses to track membership, ' +
       'event attendance and satisfaction. Raw form exports land as messy spreadsheets; a cleaning ' +
-      'layer normalises them before anything is charted, and the overview page turns the result ' +
+      'layer normalizes them before anything is charted, and the overview page turns the result ' +
       'into headline counts, engagement rate, satisfaction and attendance trends, and event rankings.',
     tags: ['Python', 'Streamlit', 'pandas', 'Supabase', 'Altair'],
     tone: 'c2',
@@ -97,10 +97,10 @@ export const projects: Project[] = [
   {
     slug: 'car-rentals',
     title: 'Car Rental DBMS',
-    kicker: 'A desktop records system over a normalised schema',
+    kicker: 'A desktop records system over a normalized schema',
     blurb:
       'A Java desktop application for a car rental business: branches, locations, staff, jobs, ' +
-      'renters and vehicles, each with its own record model over a normalised MySQL schema. ' +
+      'renters and vehicles, each with its own record model over a normalized MySQL schema. ' +
       'Swing front end, a DAO layer between the views and the database, and login and dashboard ' +
       'screens on top.',
     tags: ['Java', 'MySQL', 'Swing', 'JDBC', 'Schema design'],
