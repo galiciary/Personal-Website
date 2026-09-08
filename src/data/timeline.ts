@@ -57,7 +57,7 @@ export const timeline: TimelineEntry[] = [
     ],
   },
   {
-    title: 'Publicity and Promotions, Animusika 2026',
+    title: 'Publicity and Promotions AVP, Animusika 2026',
     subtitle: 'Central Committee',
     blurb:
       'Wrote the captions behind the event’s social posts and helped shape the marketing and ' +
@@ -96,7 +96,7 @@ export const timeline: TimelineEntry[] = [
     kind: 'event',
   },
   {
-    title: 'Documentations, AnimoChristmas 2025',
+    title: 'Documentations AVP, AnimoChristmas 2025',
     subtitle: 'Central Committee',
     blurb:
       'Handled the event’s documentation, reviewing it for inconsistencies and keeping the ' +
