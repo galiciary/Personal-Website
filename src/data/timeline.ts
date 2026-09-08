@@ -68,6 +68,14 @@ export const timeline: TimelineEntry[] = [
     href: 'https://resq-kkve.onrender.com/' }],
   },
   {
+    title: 'Publicity and Promotions, Animusika 2026',
+    blurb:
+      'Wrote the captions behind the event’s social posts and helped shape the marketing and ' +
+      'video concepts used to build reach and engagement.',
+    date: 'May 2026 – July 2026',
+    kind: 'event',
+  },
+  {
     title: 'Macky vs Malware',
     subtitle: 'La Salle Computer Society',
     blurb:
@@ -107,6 +115,14 @@ export const timeline: TimelineEntry[] = [
     href: 'https://dlsu-dss-dashboard.onrender.com/' }],
   },
   {
+    title: 'Documentations, AnimoChristmas 2025',
+    blurb:
+      'Handled the event’s documentation, reviewing it for inconsistencies and keeping the ' +
+      'records usable for the committees that depended on them.',
+    date: 'October 2025 – December 2025',
+    kind: 'event',
+  },
+  {
     title: 'Car Rental DBMS',
     subtitle: 'Information Management',
     blurb:
@@ -115,15 +131,6 @@ export const timeline: TimelineEntry[] = [
     date: 'November 2025',
     kind: 'project',
     links: [{ label: 'Source', href: 'https://github.com/galiciary/ccinfom5' }],
-  },
-  {
-    title: 'Accepted into a minor program in Financial Risk and Analytics',
-    subtitle: 'De La Salle University, Manila',
-    blurb:
-      'Applied and was accepted, then rescinded the offer later in the year after deciding my ' +
-      'interest sat closer to investment management than to risk analytics.',
-    date: 'February 2025',
-    kind: 'education',
   },
   {
     title: 'Executive, External Relations',
