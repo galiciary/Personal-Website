@@ -27,29 +27,6 @@ import Backdrop from './Backdrop.astro';
           ))
         }
       </ul>
-
-      <ul class="social-icons">
-        {
-          socials.map((s) => (
-            <li>
-              <a href={s.href} target="_blank" rel="me noopener" aria-label={s.label} title={s.label}>
-                <Icon name={s.icon} />
-              </a>
-            </li>
-          ))
-        }
-        <li>
-          <a
-            href={`mailto:${site.email}`}
-            target="_blank"
-            rel="noopener"
-            aria-label="Email"
-            title={site.email}
-          >
-            <Icon name="mail" />
-          </a>
-        </li>
-      </ul>
     </div>
 
     <div class="col">
@@ -66,8 +43,6 @@ import Backdrop from './Backdrop.astro';
           <a href={site.resume} target="_blank" rel="noopener">Résumé</a>
         </li>
       </ul>
-
-      <p class="where">{site.location}</p>
     </div>
   </div>
 </section>
