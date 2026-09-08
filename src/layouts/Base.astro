@@ -14,7 +14,9 @@ const {
   description = site.intro,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com');
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://galiciary.github.io');
+// absolute, link previews will not resolve a relative path
+const ogImage = new URL('/og.png', canonical);
 ---
 
 <!doctype html>
@@ -30,7 +32,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.com
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.fullName} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${site.fullName} — ${site.tagline}`} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
     <meta name="theme-color" content="#0b0c0e" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
