@@ -5,6 +5,7 @@ import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Timeline from '../components/Timeline.astro';
 import TimelineBackdrop from '../components/TimelineBackdrop.astro';
+import About from '../components/About.astro';
 import { projects } from '../data/projects';
 ---
 
@@ -40,15 +41,8 @@ import { projects } from '../data/projects';
     <Timeline />
   </Section>
 
-  <!-- about and contact are held back until they have real content
-  <Section id="about" eyebrow="03 / About" title="pass" lede="pass" tone="light">
-    <div class="stub">TODO: bio, skills</div>
-  </Section>
-
-  <Section id="contact" eyebrow="04 / Contact" title="pass" lede="pass">
-    <div class="stub">TODO: contact block</div>
-  </Section>
-  -->
+  <!-- reachable from the hero button, not from the nav -->
+  <About />
 </Base>
 
 <script>

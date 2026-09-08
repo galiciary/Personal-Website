@@ -7,7 +7,10 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="wrap row">
     <p>© {year} {site.fullName}</p>
-    <p class="meta">Built with Astro · {site.location}</p>
+    <p class="meta">
+      Built with Astro ·{' '}
+      <a href={site.repo} target="_blank" rel="noopener">Website Source Code</a>
+    </p>
   </div>
 </footer>
 
@@ -29,5 +32,16 @@ const year = new Date().getFullYear();
 
   .meta {
     color: var(--fg-faint);
+  }
+
+  .meta a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+  }
+
+  .meta a:hover {
+    border-color: var(--accent);
   }
 </style>

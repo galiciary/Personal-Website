@@ -22,15 +22,22 @@
     mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 92%);
   }
+
+  /* inside a section the fade runs the other way, matching the timeline band */
+  :global(.section) .backdrop {
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 100%);
+  }
 </style>
 
 <script>
   type Node = { x: number; y: number; vx: number; vy: number; r: number };
 
-  const canvas = document.querySelector<HTMLCanvasElement>('[data-backdrop]');
-  const ctx = canvas?.getContext('2d');
+  // the same backdrop is used by more than one section, so set each one up
+  for (const canvas of document.querySelectorAll<HTMLCanvasElement>('[data-backdrop]')) {
+    const ctx = canvas.getContext('2d');
+    if (!ctx) continue;
 
-  if (canvas && ctx) {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     // one node per ~18k device-independent pixels, clamped at both ends
@@ -131,13 +138,13 @@
     reset();
     start();
 
-    // only animate while the hero is actually on screen
-    const hero = canvas.parentElement;
-    if (hero && 'IntersectionObserver' in window) {
+    // only animate while the section is actually on screen
+    const host = canvas.parentElement;
+    if (host && 'IntersectionObserver' in window) {
       new IntersectionObserver(
         ([entry]) => (entry.isIntersecting ? start() : stop()),
         { threshold: 0 }
-      ).observe(hero);
+      ).observe(host);
     }
 
     document.addEventListener('visibilitychange', () =>

@@ -14,6 +14,8 @@ export const site = {
   resume: '/Lance-Galicia-Resume.pdf',
   location: 'Manila, Philippines',
   email: 'lance_galicia@dlsu.edu.ph',
+  // this site's own repository, linked from the footer
+  repo: 'https://github.com/galiciary/galiciary.github.io',
 } as const;
 
 export const nav = [
