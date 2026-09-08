@@ -7,6 +7,7 @@ const labels: Record<string, string> = {
   education: 'Education',
   work: 'Work',
   certification: 'Certification',
+  event: 'Event',
 };
 ---
 
@@ -167,6 +168,11 @@ const labels: Record<string, string> = {
   .entry[data-kind='education']::before {
     background: var(--silver);
     border-color: var(--silver);
+  }
+
+  .entry[data-kind='event']::before {
+    background: var(--accent-dim);
+    border-color: var(--accent);
   }
 
   .entry[data-kind='certification']::before {

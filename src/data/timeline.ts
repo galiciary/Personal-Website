@@ -6,7 +6,7 @@ export type TimelineEntry = {
   // free text, shown in mono under the entry
   date: string;
   // drives the marker colour and the small label
-  kind: 'role' | 'project' | 'education' | 'work' | 'certification';
+  kind: 'role' | 'project' | 'education' | 'work' | 'certification' | 'event';
   links?: { label: string; href: string }[];
 };
 
@@ -22,6 +22,15 @@ export const timeline: TimelineEntry[] = [
     date: 'August 2026',
     kind: 'project',
     links: [{ label: 'Demo', href: 'https://youtu.be/wDCP1lN0BF0' }],
+  },
+  {
+    title: 'First hackathon',
+    subtitle: 'Advanced and Offensive Security',
+    blurb:
+      'My first time competing in a hackathon. Worked with a team to [what you built or ' +
+      'attacked] under a fixed deadline, on top of the coursework running at the same time.',
+    date: 'July 2026',
+    kind: 'event',
   },
   {
     title: 'Junior Officer, Research and Development',
@@ -59,6 +68,16 @@ export const timeline: TimelineEntry[] = [
     href: 'https://resq-kkve.onrender.com/' }],
   },
   {
+    title: 'Macky vs Malware',
+    subtitle: 'La Salle Computer Society',
+    blurb:
+      'Spearheaded an awareness event on the risks people meet online, from malware and ' +
+      'phishing to the habits that let them through, planned over three months with the ' +
+      'organisation.',
+    date: 'January 2026 – March 2026',
+    kind: 'event',
+  },
+  {
     title: 'ISC2 Certified in Cybersecurity (CC) Passer',
     subtitle: 'ISC2',
     blurb:
@@ -66,6 +85,15 @@ export const timeline: TimelineEntry[] = [
       'network security, and security operations.',
     date: 'March 2026',
     kind: 'certification',
+  },
+  {
+    title: 'Accepted as a Junior Officer',
+    subtitle: 'La Salle Computer Society',
+    blurb:
+      'Joined the junior officer training programme, taking part in the team building and ' +
+      'technical events the organisation ran through the year.',
+    date: 'September 2025 – August 2026',
+    kind: 'role',
   },
   {
     title: 'Associate, Data and Research',
