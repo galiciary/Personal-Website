@@ -159,6 +159,12 @@ export const timeline: TimelineEntry[] = [
     kind: 'role',
   },
   {
+    title: 'Started BS Computer Science, Major in Network and Information Security',
+    subtitle: 'De La Salle University, Manila',
+    date: 'September 2024',
+    kind: 'education',
+  },
+  {
     title: 'Clerical Intern',
     subtitle: 'Daraga Municipal Hall, Employment Section',
     blurb:
@@ -166,11 +172,5 @@ export const timeline: TimelineEntry[] = [
       'the PESO website with Google Sheets.',
     date: 'April 2024 – May 2024',
     kind: 'work',
-  },
-  {
-    title: 'Started BS Computer Science, Major in Network and Information Security',
-    subtitle: 'De La Salle University, Manila',
-    date: 'September 2024',
-    kind: 'education',
-  },
+  }
 ];
