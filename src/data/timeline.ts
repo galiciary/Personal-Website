@@ -117,7 +117,7 @@ export const timeline: TimelineEntry[] = [
     links: [{ label: 'Source', href: 'https://github.com/galiciary/ccinfom5' }],
   },
   {
-    title: 'Accepted into the minor in Financial Risk and Analytics',
+    title: 'Accepted into a minor program in Financial Risk and Analytics',
     subtitle: 'De La Salle University, Manila',
     blurb:
       'Applied and was accepted, then rescinded the offer later in the year after deciding my ' +
