@@ -147,6 +147,11 @@ img {
   border-top: 1px solid var(--line);
 }
 
+/* a band that only carries a few lines does not need the full height */
+.section[data-size='compact'] {
+  padding-block: calc(var(--section-gap) * 0.55);
+}
+
 /* alternating bands give the page a rhythm instead of one flat wall of dark */
 .section[data-tone='raised'] {
   background: var(--bg-raised);

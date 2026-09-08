@@ -6,12 +6,14 @@ interface Props {
   lede?: string;
   // alternate the background band so sections do not read as one flat wall
   tone?: 'base' | 'raised' | 'sunken' | 'light';
+  // shorter band, for sections with little content
+  compact?: boolean;
 }
 
-const { id, eyebrow, title, lede, tone = 'base' } = Astro.props;
+const { id, eyebrow, title, lede, tone = 'base', compact = false } = Astro.props;
 ---
 
-<section class="section reveal" id={id} data-tone={tone}>
+<section class="section reveal" id={id} data-tone={tone} data-size={compact ? 'compact' : null}>
   <!-- decoration sits outside .wrap so it can use the full section width -->
   <slot name="decor" />
 
