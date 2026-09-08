@@ -5,6 +5,7 @@ import Section from '../components/Section.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Timeline from '../components/Timeline.astro';
 import TimelineBackdrop from '../components/TimelineBackdrop.astro';
+import AboutMe from '../components/AboutMe.astro';
 import About from '../components/About.astro';
 import { projects } from '../data/projects';
 ---
@@ -39,6 +40,17 @@ import { projects } from '../data/projects';
   >
     <TimelineBackdrop slot="decor" />
     <Timeline />
+  </Section>
+
+  <!-- who i am, in my own words, plus the skills behind the projects -->
+  <Section
+    id="about"
+    eyebrow="03 / About"
+    title="About Me"
+    lede="I like strength training, swimming and running. I also like to read novels and watch stuff. I am a huge fan of Modern Family and Abbott Elementary. And of course, I like to nerd out, mainly using the tools below."
+    tone="light"
+  >
+    <AboutMe />
   </Section>
 
   <!-- reachable from the hero button, not from the nav -->

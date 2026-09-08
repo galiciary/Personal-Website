@@ -23,6 +23,7 @@ export const nav = [
   { label: 'Home', href: '#top' },
   { label: 'Projects', href: '#work' },
   { label: 'Timeline', href: '#timeline' },
+  { label: 'About', href: '#about' },
 ] as const;
 
 export type SocialLink = {
