@@ -32,7 +32,7 @@ export type SocialLink = {
   // shown instead of the url in the contact list, for links that read badly
   display?: string;
   
-  icon: 'github' | 'linkedin' | 'mail' | 'discord';
+  icon: 'github' | 'linkedin' | 'mail' | 'discord' | 'instagram';
 };
 
 export const socials: SocialLink[] = [
@@ -43,5 +43,11 @@ export const socials: SocialLink[] = [
     href: 'https://discord.com/users/821402496509280297',
     display: 'motop4pi',
     icon: 'discord',
+  },
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/galiciary/',
+    display: '@galiciary',
+    icon: 'instagram',
   },
 ];
