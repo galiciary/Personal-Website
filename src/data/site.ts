@@ -19,8 +19,6 @@ export const site = {
 export const nav = [
   { label: 'Projects', href: '#work' },
   { label: 'Timeline', href: '#timeline' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
 ] as const;
 
 export type SocialLink = {

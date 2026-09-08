@@ -2,6 +2,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  // Update this once the domain is decided — it drives canonical URLs and og:url.
-  site: 'https://example.com',
+  // drives canonical urls and og:url. update this if a custom domain is added
+  site: 'https://galiciary.github.io',
 });
