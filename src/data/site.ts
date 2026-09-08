@@ -14,6 +14,8 @@ export const site = {
   resume: '/Lance-Galicia-Resume.pdf',
   location: 'Manila, Philippines',
   email: 'lance_galicia@dlsu.edu.ph',
+  // a username has no public profile url, so the icon copies it instead
+  discord: 'motop4pi',
   // this site's own repository, linked from the footer
   repo: 'https://github.com/galiciary/galiciary.github.io',
 } as const;
@@ -27,7 +29,7 @@ export type SocialLink = {
   label: string;
   href: string;
   
-  icon: 'github' | 'linkedin' | 'mail';
+  icon: 'github' | 'linkedin' | 'mail' | 'discord';
 };
 
 export const socials: SocialLink[] = [

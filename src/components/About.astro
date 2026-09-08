@@ -27,8 +27,8 @@ import Backdrop from './Backdrop.astro';
           ))
         }
         <li>
-          <span class="label">Resume:</span>
-          <a href={site.resume} target="_blank" rel="noopener">Download PDF</a>
+          <span class="label">Discord:</span>
+          <span class="value">{site.discord}</span>
         </li>
       </ul>
 
@@ -114,6 +114,10 @@ import Backdrop from './Backdrop.astro';
 
   .label {
     color: var(--fg-muted);
+  }
+
+  .value {
+    color: var(--fg);
   }
 
   .links a,
